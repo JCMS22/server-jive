@@ -8,6 +8,7 @@
 #include <sstream>
 #include <QTime>
 #include "ServerTypes.h"
+#include "../CommandProcessor/ICmdStack.h"
 
 namespace server {
     class IServer {
@@ -15,6 +16,7 @@ namespace server {
 
         virtual void open(sServerConfig config)=0;
         virtual void terminate()=0;
+        virtual void setCmdStack(cmdprocessor::ICmdStack* pStack)=0;
     };
 
 

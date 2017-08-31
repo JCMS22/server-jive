@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.8)
 project(udp_server_jive)
 
 set(CMAKE_CXX_STANDARD 11)
-set(SOURCE_FILES main.cpp DataBaseConnector/IDataBaseConnector.h DataBaseConnector/IJsonLookupDataBase.h DataBaseConnector/JsonLocalDataBase.cpp DataBaseConnector/JsonLocalDataBase.h Server/IServer.h Server/TcpServer.cpp Server/TcpServer.h Server/ServerTypes.h)
+set(SOURCE_FILES main.cpp DataBaseConnector/IDataBaseConnector.h DataBaseConnector/IJsonLookupDataBase.h DataBaseConnector/JsonLocalDataBase.cpp DataBaseConnector/JsonLocalDataBase.h Server/IServer.h Server/TcpServer.cpp Server/TcpServer.h Server/ServerTypes.h CommandProcessor/ICmdStack.h CommandProcessor/SipLookupCmdProcessor.cpp CommandProcessor/SipLookupCmdProcessor.h DataBaseConnector/ISipLookup.h)
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Network REQUIRED)
 include_directories(${Qt5Core_INCLUDE_DIRS})

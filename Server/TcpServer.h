@@ -8,6 +8,8 @@
 #include "IServer.h"
 #include "../DataBaseConnector/IJsonLookupDataBase.h"
 #include <QTcpServer>
+#include <QTimer>
+
 namespace server {
 
     class TcpServer :  public QObject, public IServer {
@@ -16,21 +18,26 @@ namespace server {
         TcpServer(dbconnector::IJsonLookupDataBase* callback);
         void open(sServerConfig config) override;
         void terminate() override;
+        void setCmdStack(cmdprocessor::ICmdStack *pStack) override;
 
 
     public slots:
         void connected();
         void onData();
-    protected:
-        void timerEvent(QTimerEvent *event) override;
+        void onTimerElapsed();
 
 
     private:
         dbconnector::IJsonLookupDataBase* _pCallback;
         QTcpServer* _pServer;
         QTcpSocket* _pSocket;
+        QTimer      _timer;
         int _currTimerId;
         int _timeout;
+
+
+
+        cmdprocessor::ICmdStack *_pStack;
     };
 }
 

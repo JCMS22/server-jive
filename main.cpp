@@ -1,30 +1,25 @@
 #include <iostream>
-#include <fstream>
-#include "nlohmann/json.hpp"
 #include "DataBaseConnector/JsonLocalDataBase.h"
 #include "Server/TcpServer.h"
-#include "Server/ServerTypes.h"
-#include <QFile>
+#include "CommandProcessor/SipLookupCmdProcessor.h"
 #include <QCoreApplication>
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QJsonObject>
-#include <QDebug>
 
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    //QFile file("./JSON/registrations.json");
 
     dbconnector::JsonLocalDataBase jldb;
-    if(jldb.createFromJsonFile("./JSON/registrations.json")) {
-        QString res = jldb.lookupFromId("0146a51532d4fdb52d000100620002");
-        qDebug(res.toLatin1());
+    if(!jldb.createFromJsonFile("./JSON/registrations.json")) {
+        qDebug("Failed to load database file");
     }else{
 
     }
 
     server::TcpServer tcpServer(&jldb);
+    tcpServer.setCmdStack(new cmdprocessor::SipLookupCmdProcessor(&jldb));
     server::sServerConfig config;
     config.timeoutMs = 10000;
     config.port = 6969;

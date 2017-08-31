@@ -8,20 +8,23 @@
 
 
 server::TcpServer::TcpServer(dbconnector::IJsonLookupDataBase* callback) : _currTimerId(0),
-                                                                          _timeout(0), _pCallback(callback) {
+                                                                          _timeout(0), _pCallback(callback),_pStack(nullptr) {
 
 }
 void server::TcpServer::open(sServerConfig config) {
     _pServer = new QTcpServer();
-    _timeout = config.timeoutMs;
     bool res = _pServer->listen(QHostAddress::LocalHost, config.port);
     if(!res){
         qDebug("Error opening TCP server\n");
         terminate();
     }else {
-        this->_currTimerId = this->startTimer(_timeout);
-        qDebug("Tcp Server running on port : " + config.port);
+        /* Register connection callback and timeout timer */
         connect(_pServer,SIGNAL(newConnection()),this, SLOT(connected()));
+        connect(&_timer,SIGNAL(timeout()),this, SLOT(onTimerElapsed()));
+        _timer.setInterval(config.timeoutMs);
+        _timer.start(config.timeoutMs);
+        qDebug("Tcp Server running");
+
     }
 
 
@@ -34,19 +37,8 @@ void server::TcpServer::terminate() {
 }
 
 
-
-
-
-
-void server::TcpServer::timerEvent(QTimerEvent *event) {
-        QObject::timerEvent(event);
-        qDebug("No request has been received for 10s, bye!\n");
-        this->killTimer(this->_currTimerId);
-        this->terminate();
-    }
-
 void server::TcpServer::connected() {
-    this->killTimer(_currTimerId);
+    _timer.stop();
     qDebug("Received new connection\n");
     while (_pServer->hasPendingConnections())
     {
@@ -54,18 +46,32 @@ void server::TcpServer::connected() {
         connect(_pSocket, SIGNAL(readyRead()), SLOT(onData()));
 
     }
-    _currTimerId = this->startTimer(_timeout);
+    _timer.start();
 
 }
 
 
 void server::TcpServer::onData() {
-    QString bitch("hello biatch");
+    _timer.stop();
     QByteArray message = _pSocket->readAll();
-    QString strMsg(message);
-    QString response = _pCallback->lookupFromId(strMsg);
-    _pSocket->write(response.toLatin1());
+    QString cmd(message);
+    if(_pStack){
+        QString res = _pStack->processCmd(cmd);
+        _pSocket->write(res.toLatin1());
+    }else{
+        /* Nothing to do */
+    }
+    _timer.start();
 
+}
+
+void server::TcpServer::onTimerElapsed() {
+    terminate();
+
+}
+
+void server::TcpServer::setCmdStack(cmdprocessor::ICmdStack *pStack) {
+    _pStack = pStack;
 }
 
 

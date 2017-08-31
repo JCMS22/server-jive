@@ -11,9 +11,12 @@ namespace dbconnector {
 
     class IJsonLookupDataBase {
     public:
+        /**
+         * Initializes the DataBase from a JSON file
+         * @param fileName The name of the JSON file
+         * @return True if the file was sucessfully parsed and the database created
+         */
         virtual bool createFromJsonFile(QString fileName) =0;
-
-        virtual QString lookupFromId(QString lookupId) =0;
 
     };
 }
