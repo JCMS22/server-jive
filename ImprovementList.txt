@@ -7,6 +7,6 @@ Test Script:
 
 
 C++App:
-1. Configuration of the server should be moved to an external file. A JSON formatted structure would do the job
+1. Configuration of the server should be moved to an external file. A JSON formatted file would do the job
 2. Server should handle more errors and disconnection
 3. Initialization could be done through builders or factory rather than directly in the main.
