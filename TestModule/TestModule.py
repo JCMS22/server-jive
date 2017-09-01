@@ -4,6 +4,9 @@ import json
 from pprint import pprint
 import linecache
 
+'''The test module is a simple executable that connects to the server and validate each record in the JSON file'''
+'''Module must be ran from the TestModule folder'''
+
 testId = "0156b26ec53c8fd73d000100620009"
 recordList = []
 addressMap = {}
@@ -41,6 +44,7 @@ def main():
             print rep
             print elem
             exit()
+    print "Test executed successfully"
 
 
 if __name__ == "__main__":

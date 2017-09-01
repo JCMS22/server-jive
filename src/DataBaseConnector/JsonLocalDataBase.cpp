@@ -19,9 +19,11 @@ namespace dbconnector {
     }
 
     bool JsonLocalDataBase::createFromJsonFile(QString fileName){
+        /* Parse the file and consider each line as JSON record */
         QFile file(fileName);
         bool res  = file.open(QIODevice::ReadOnly);
         if(res){
+            /* Add each line in the map */
             QString line = file.readLine();
             while(line.size() > 0){
               QJsonObject jdoc =  QJsonDocument::fromJson(line.toLatin1()).object();
@@ -30,6 +32,7 @@ namespace dbconnector {
                     res = false;
                     break;
                 }else{
+                    /*Build a map of the json record */
                    QString key = jdoc.value(ADDR_KEY).toString();
                     this->_textDb.insert(key,line);
                 }
@@ -37,7 +40,10 @@ namespace dbconnector {
             }
             file.close();
         }else{
-            qDebug("Failed to open file :" + fileName.toLatin1());
+            /* Stream operators do not compile here. */
+            QString error = "Failed to open file :";
+            error.append(fileName);
+            qDebug(error.toLatin1().data());
         }
         return res;
     }

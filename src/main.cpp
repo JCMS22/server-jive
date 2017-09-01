@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     if(!jldb.createFromJsonFile("./JSON/registrations.json")) {
         qDebug("Failed to load database file");
     }else{
-
+        qDebug("JSON Database succesfully loaded");
     }
 
     /* Initialize server and database */

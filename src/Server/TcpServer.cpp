@@ -32,7 +32,7 @@ void server::TcpServer::open(sServerConfig config) {
         _timer.start(config.timeoutMs);
 
 
-        qDebug("Tcp Server running");
+        qDebug() << "Tcp server running on port :" << QString::number(config.port);
 
     }
 
