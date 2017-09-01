@@ -12,6 +12,8 @@ Tested on Mac OS using QT5.9.1 and compiled with CLang
 Project is a CMake project done with CLion
 
 Compile and run :
+From Mac OS X:
+You can directly run the versioned executable on the root of the repository.
 
 From CLion :
 Import project
