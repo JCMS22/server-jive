@@ -41,3 +41,6 @@ You need to copy the generated executable to the root of this repository
 
 Then you can simply run the application from the terminal.
 
+
+The Python Test module:
+Simply execute the python file from its TestModule directory
