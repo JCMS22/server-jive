@@ -7,8 +7,10 @@
 
 #include "IServer.h"
 #include "../DataBaseConnector/IJsonLookupDataBase.h"
+#include "ServerCmdCallback.h"
 #include <QTcpServer>
 #include <QTimer>
+#include <QSignalMapper>
 
 namespace server {
 
@@ -23,21 +25,23 @@ namespace server {
 
     public slots:
         void connected();
-        void onData();
+        void onData(int clientId);
         void onTimerElapsed();
+        void onMessageToSend(QString message, int id);
 
 
     private:
         dbconnector::IJsonLookupDataBase* _pCallback;
         QTcpServer* _pServer;
-        QTcpSocket* _pSocket;
+        QVector<QTcpSocket*> _socketList;
+        QSignalMapper* _pMapper;
         QTimer      _timer;
         int _currTimerId;
         int _timeout;
-
-
-
         cmdprocessor::ICmdStack *_pStack;
+        ServerCmdCallback _myCallback;
+
+
     };
 }
 
