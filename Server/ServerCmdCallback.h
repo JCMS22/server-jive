@@ -12,6 +12,8 @@ namespace server {
     class ServerCmdCallback : public QObject, public cmdprocessor::ICmdResponseCallback {
         Q_OBJECT
     public:
+        ServerCmdCallback();
+        ~ServerCmdCallback();
         /**
          * Receives response and send the signal that the message is ready
          * @param response The response to send

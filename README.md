@@ -19,7 +19,10 @@ In CLion->Preferences->Build,Execution,Deployment->CMake
 Add the path of the QT Cmake libraries options.
 On Mac OS it would be something like this :
 -DCMAKE_PREFIX_PATH=/Users/Jayce/Qt/5.9.1/clang_64/lib/cmake
-The executable should ben build and run directly from CLion
+On the executable configuration, set the working directory as this repository root.
+Exemple : /Users/Jayce/server-jive
+What we need is the JSON folder at the same level as the executable.
+The executable should then build and run directly from CLion
 
 From terminal or Qt Creator:
 

@@ -17,6 +17,7 @@ namespace cmdprocessor{
         public :
 
             SipLookupCmdProcessor(dbconnector::ISipLookup *pLookup);
+            ~SipLookupCmdProcessor();
 
             /**
              * Push a command to the Processor. Signal is send to process the command

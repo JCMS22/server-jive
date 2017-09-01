@@ -32,5 +32,9 @@ void cmdprocessor::SipLookupCmdProcessor::receiveCmdSignal(QString cmd, int id,
 
 }
 
+cmdprocessor::SipLookupCmdProcessor::~SipLookupCmdProcessor() {
+
+}
+
 
 

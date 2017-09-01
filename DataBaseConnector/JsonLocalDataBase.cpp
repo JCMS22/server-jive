@@ -46,5 +46,13 @@ namespace dbconnector {
         return this->_textDb[lookupId];
     }
 
+    JsonLocalDataBase::JsonLocalDataBase() {
+
+    }
+
+    JsonLocalDataBase::~JsonLocalDataBase() {
+
+    }
+
 
 }

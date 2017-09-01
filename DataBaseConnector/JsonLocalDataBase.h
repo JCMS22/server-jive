@@ -13,6 +13,8 @@
 namespace dbconnector {
     class JsonLocalDataBase : public IJsonLookupDataBase, public IDataBaseConnector, public ISipLookup  {
     public:
+        JsonLocalDataBase();
+        ~JsonLocalDataBase();
         /**
          * Method does not do anything
          * @return Always return true

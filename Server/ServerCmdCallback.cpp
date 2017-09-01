@@ -9,3 +9,11 @@ void server::ServerCmdCallback::callback(QString response, int id) {
 
 }
 
+server::ServerCmdCallback::~ServerCmdCallback() {
+
+}
+
+server::ServerCmdCallback::ServerCmdCallback() {
+
+}
+

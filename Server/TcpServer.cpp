@@ -7,7 +7,7 @@
 #include <QTcpSocket>
 
 
-server::TcpServer::TcpServer(dbconnector::IJsonLookupDataBase* callback) : _currTimerId(0),
+server::TcpServer::TcpServer(dbconnector::IJsonLookupDataBase* callback) :
                                                                           _timeout(0), _pCallback(callback),_pStack(nullptr) {
 
 }
@@ -87,6 +87,7 @@ void server::TcpServer::onData(int clientId) {
 }
 
 void server::TcpServer::onTimerElapsed() {
+    qDebug("No response have been received for more than 10s, bye!");
     terminate();
 
 }
@@ -102,6 +103,11 @@ void server::TcpServer::onMessageToSend(QString message, int id){
     }else{
         qDebug("TcpServer : Received invalid client id\n");
     }
+}
+
+server::TcpServer::~TcpServer() {
+    delete _pMapper;
+    delete _pServer;
 }
 
 

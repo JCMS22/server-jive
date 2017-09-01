@@ -18,6 +18,7 @@ namespace server {
     Q_OBJECT
     public:
         TcpServer(dbconnector::IJsonLookupDataBase* callback);
+        ~TcpServer();
         /**
          * Open the server with the specified config
          * @param config Configuration of the server
@@ -45,21 +46,28 @@ namespace server {
          */
         void onData(int clientId);
         /**
-         *
+         * Callback for timer expiring
          */
         void onTimerElapsed();
+        /**
+         * Callback method that send responses to the client
+         * @param message The message to send
+         * @param id ID of the client
+         */
         void onMessageToSend(QString message, int id);
 
 
     private:
+        /** Parameters received from extern */
         dbconnector::IJsonLookupDataBase* _pCallback;
+        cmdprocessor::ICmdStack *_pStack;
+
+        /**Member parameters */
         QTcpServer* _pServer;
         QVector<QTcpSocket*> _socketList;
         QSignalMapper* _pMapper;
         QTimer      _timer;
-        int _currTimerId;
         int _timeout;
-        cmdprocessor::ICmdStack *_pStack;
         ServerCmdCallback _myCallback;
 
 
