@@ -6,6 +6,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include "JsonLocalDataBase.h"
+#include <QDebug>
 
 namespace dbconnector {
     const QString JsonLocalDataBase::ADDR_KEY("addressOfRecord");
@@ -40,10 +41,7 @@ namespace dbconnector {
             }
             file.close();
         }else{
-            /* Stream operators do not compile here. */
-            QString error = "Failed to open file :";
-            error.append(fileName);
-            qDebug(error.toLatin1().data());
+            qDebug() << "Failed to open file : " << fileName;
         }
         return res;
     }
