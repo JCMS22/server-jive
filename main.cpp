@@ -18,6 +18,7 @@ int main(int argc, char *argv[])
 
     }
 
+    /* Initialize server and database */
     server::TcpServer tcpServer(&jldb);
     tcpServer.setCmdStack(new cmdprocessor::SipLookupCmdProcessor(&jldb));
     server::sServerConfig config;
@@ -27,14 +28,3 @@ int main(int argc, char *argv[])
 
     return a.exec();
 }
-
-/*int main() {
-    std::cout << "Hello, World!" << std::endl;
-    nlohmann::json  j;
-    QFile file("./JSON/registrations.json");
-
-
-    dbconnector::JsonLocalDataBase db;
-    db.createFromJson(j);
-    return 0;
-}*/

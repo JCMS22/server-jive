@@ -1,0 +1,12 @@
+List of improvements:
+
+Test Script:
+1. Test script is pretty basic. It should be able to handle error cases and produce a report
+2. Test could also test the "close after 10 seconds" by handling a timeout on the socket
+
+
+
+C++App:
+1. Configuration of the server should be moved to an external file. A JSON formatted structure would do the job
+2. Server should handle more errors and disconnection
+3. Initialization could be done through builders or factory rather than directly in the main.
