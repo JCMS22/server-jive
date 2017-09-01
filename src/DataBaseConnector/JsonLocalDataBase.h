@@ -9,6 +9,7 @@
 #include "IDataBaseConnector.h"
 #include "IJsonLookupDataBase.h"
 #include "ISipLookup.h"
+#include <QJsonObject>
 
 namespace dbconnector {
     class JsonLocalDataBase : public IJsonLookupDataBase, public IDataBaseConnector, public ISipLookup  {
@@ -44,6 +45,14 @@ namespace dbconnector {
         QMap<QString,QString> _textDb;
 
         static const QString ADDR_KEY;
+
+        /**
+         * Finds the youngest record according to the "created" field.
+         * @param req1 The record1
+         * @param req2 The record2
+         * @return The youngest record. If both are equal. Record 2 is returned.
+         */
+        QJsonObject getYoungestRequest(const QJsonObject &req1, const QJsonObject &req2);
     };
 }
 

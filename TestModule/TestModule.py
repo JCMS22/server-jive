@@ -3,6 +3,7 @@ import time
 import json
 from pprint import pprint
 import linecache
+import datetime
 
 '''The test module is a simple executable that connects to the server and validate each record in the JSON file'''
 '''Module must be ran from the TestModule folder'''
@@ -15,8 +16,11 @@ with open("../JSON/registrations.json") as data_file:
     for i, line in enumerate(data_file):
         elem = json.loads(line)
         if elem["addressOfRecord"] in addressMap:
-            x = addressMap[elem["addressOfRecord"]]
-            recordList[x] = elem
+            newDt = datetime.datetime.strptime(elem["created"], '%Y-%m-%dT%H:%M:%S.%fZ')
+            oldElemId = addressMap[elem["addressOfRecord"]]
+            oldDt = datetime.datetime.strptime(recordList[oldElemId]["created"],'%Y-%m-%dT%H:%M:%S.%fZ')
+            if newDt > oldDt:
+                recordList[oldElemId] = elem
         else:
             recordList.append(elem)
             addressMap[elem["addressOfRecord"]] = len(recordList)-1
