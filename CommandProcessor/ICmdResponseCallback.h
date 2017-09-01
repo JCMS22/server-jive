@@ -11,6 +11,11 @@ namespace cmdprocessor{
 
     class ICmdResponseCallback {
     public:
+        /**
+         * Callback interface
+         * @param response  Message to send
+         * @param id ID of the callback request
+         */
         virtual void callback(QString response, int id)= 0;
 
     };

@@ -14,8 +14,19 @@ namespace server {
     class IServer {
     public:
 
+        /**
+         * Open a server with the specific configuration
+         * @param config Configuration of the server to open
+         */
         virtual void open(sServerConfig config)=0;
+        /**
+         * Closes the server connection
+         */
         virtual void terminate()=0;
+        /**
+         * Set the stack to which push commands
+         * @param pStack The pointer to the stack
+         */
         virtual void setCmdStack(cmdprocessor::ICmdStack* pStack)=0;
     };
 

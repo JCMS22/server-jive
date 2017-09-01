@@ -12,8 +12,18 @@ namespace server {
     class ServerCmdCallback : public QObject, public cmdprocessor::ICmdResponseCallback {
         Q_OBJECT
     public:
+        /**
+         * Receives response and send the signal that the message is ready
+         * @param response The response to send
+         * @param id ID of the executed command
+         */
         void callback(QString response, int id) override;
         signals:
+        /**
+         * Signal sent to notify that the message is ready
+         * @param response The response to send
+         * @param id ID of the executed command
+         */
         void sendMessage(QString response, int id);
     };
 }

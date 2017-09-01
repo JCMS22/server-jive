@@ -24,7 +24,7 @@ with open("../JSON/registrations.json") as data_file:
 def main():
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.connect(('localhost',6969))
-    '''First send wrong input and check we receive \n''''
+    '''First send wrong input and check we receive \n'''
     client.send("3563452345235")
     emptyRes = client.recv(2048)
     if emptyRes != "\n":

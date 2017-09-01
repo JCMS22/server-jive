@@ -18,14 +18,35 @@ namespace server {
     Q_OBJECT
     public:
         TcpServer(dbconnector::IJsonLookupDataBase* callback);
+        /**
+         * Open the server with the specified config
+         * @param config Configuration of the server
+         */
         void open(sServerConfig config) override;
+        /**
+         * Terminate the server connection
+         */
         void terminate() override;
+        /**
+         * Sets the stack to push commands
+         * @param pStack The pointer to the stack
+         */
         void setCmdStack(cmdprocessor::ICmdStack *pStack) override;
 
 
     public slots:
+        /**
+         * Slot receiving the connected event
+         */
         void connected();
+        /**
+         * Slot receiving data from a client
+         * @param clientId ID of the client
+         */
         void onData(int clientId);
+        /**
+         *
+         */
         void onTimerElapsed();
         void onMessageToSend(QString message, int id);
 
